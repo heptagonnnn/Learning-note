@@ -102,5 +102,32 @@ rs.close();
 
 ### 预编译语句
 
+#### PreparedStatement
+用于接收模版sql语句
+
+```
+insert into stu (id, name) values (? , ? );
+```
+
+然后使用适当的set方法，对指定位置的‘？’进行替换，生成最终mysql语句
+
+```Java
+String sql = "insert into stu (id, name) values(?, ?);";
+
+conn = JdbcUtil.getConnection();
+ps = conn.preparedStatement(sql);
+
+ps.setInt(1, 1);
+ps.setString(2, "name");
+
+// 或者使用setObject方法进行自动判断
+ps.setObject(1, 1);
+ps.setObject(2, "name");
+
+ps.executeUpdate();
+
+// 或
+ps.executeQuery();
+```
 
 ### 数据库连接池与配置文件
