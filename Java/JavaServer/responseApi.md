@@ -32,5 +32,11 @@ response.setDateHeader(String header, Date date);
 // 重定向相关
 respons.setStatus(302);
 response.setHeader("location", String url);
+// java内部封装
+response.sendRedirect(String url);
 
+
+// 定时刷新重定向
+// url格式, `${秒数};url=${url}`
+response.setHeader("refresh", String url);
 ```
