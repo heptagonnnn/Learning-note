@@ -276,3 +276,101 @@ $red: blue
 
 
 如需要使用scss导入css文件，将css文件后缀改为scss即可，可以做到完全兼容
+
+
+## 静默注释
+
+scss中的注释器与js中相同，可以使用//进行注释（css中不可）
+
+```scss
+body {
+  color: red; // 这是一个注释
+}
+
+/*
+这也是注释
+*/
+```
+
+
+## 混合器
+使用@mixin标识符定义一个大段的样式
+
+通过@include调用
+
+### 在混合器中使用css规则
+```scss
+
+
+// index.scss
+@mixin common {
+  color: red;
+  background: blue;
+  border: 1px solid black;
+}
+
+
+// test.scss
+.box {
+  @include common;
+}
+
+//等同于
+.box {
+  color: red;
+  background: blue;
+  border: 1px solid black;
+}
+```
+
+### 给混合器传参
+通过传递参数，使混合器在include时，生成更灵活、准确的样式。
+
+```scss
+
+@mixin link-color($normal, $hover, $visited) {
+  color: $normal;
+  &:hover: $hover;
+  &:visitied: $visited
+}
+
+
+// 使用时
+.test {
+  @include link-color(red, pink, blue);
+
+  // 或
+  @include link-color(
+    $normal: red,
+    $hove: pink,
+    $visited: blue
+    )
+}
+```
+
+### 默认参数值
+
+```scss
+@mixin link-color (
+  $normal: red,
+  $hover: blue,
+  $visited: green
+  ) {
+    color: $normal;
+    &:hover: $hover;
+    &:visited: $visited
+  }
+
+
+// 使用
+
+.test {
+  @include link-color();
+}
+
+.test1 {
+  @include link-color (
+    $normal: pink
+    )
+}
+```
