@@ -1,4 +1,4 @@
-# ResponseApi
+  # ResponseApi
 
 
 ## 响应行
@@ -19,6 +19,8 @@ response.addHeader(String header, String value);
 response.addIntHeader(String header, int value);
 // 毫秒数？。。
 response.addDateheader(String header, Date date);
+
+
 
 
 
