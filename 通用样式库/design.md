@@ -6,16 +6,17 @@
 ```text
 style
   |--variable
+    |--size.scss
     |--color.scss // 颜色声明文件
   |--color--字体/背景等颜色相关
     |--index.scss // 入口文件
     |--font-color.scss // 字体颜色应用文件--导入index
   |--layout // 布局相关
     |--box.scss // 盒模型相关--1.margin;2.padding;3.border;4.box-sizng;
+    |--layout.scss
+    |--index.scss;
   |--base // 全局默认样式类
 ```
-
-
 ## 颜色
 
 ### 如何给颜色命名
