@@ -52,47 +52,46 @@ public class Download extends HttpServlet {
 ## 使用附件形式下载
 
 ### 流程
-1. 通过参数形式，获取文件名
+1. 通过参数形式，获取文件名,mime
 2. 设置请求头，告知浏览器以附件形式下载
 3. 设置请求头，规定mime类型
 4. 简单实现
 
 
 ```java
-@WebServlet("/download")
-class Download extends HttpServlet throws ServletException, IOException {
-
-  protected void service(HttpServletRequest request, HttpServletResponse response) {
+@webServlet("/download")
+class Download extends HttpServlet {
 
 
+  protected void service (HttpServletRequest request, HttpServletResponse response) {
+    // 1. 获取文件名，mime
+    String filename = request.getParamater("filename");
+    String path = this.getServletContext().getRealPath();
 
-		String filename = request.getParameter("filename");
+    String mime = this.getServletContext().getMimeType(path);
+    // 2. 设置请求头，确定附件形式,mimetype
 
-		String path = this.getServletContext().getRealPath("download/" + filename);
+    response.setHeader("Content-Disposition", "attachment;filename=" + filename);
+
+    response.setContentType(mime);
 
 
-		// 根据名称获取mime类型
-		String mime = this.getServletContext().getMimeType(filename);
-		// 设置mime类型
-		response.setContentType(mime);
+    // 3. 读取文件
 
-		System.out.println(filename);
-		// 告知浏览器以组件形式下载
-		response.setHeader("Content-Disposition", "attachment;filename=" + filename);
+    FileInputStream in = new FileInputStream(path);
+    ServletOutputStream out = response.getOutputStream();
 
-		FileInputStream in = new FileInputStream(path);
+    byte[] buffer = new byte[1024];
 
-		byte[] buffer = new byte[1024];
-		int length;
+    int lengh;
 
-		ServletOutputStream out = response.getOutputStream();
+    whilte((length = in.read(buffer)) != 1) {
+      out.write(buffer, 0, length);
+    }
 
-		while((length = in.read(buffer)) != -1) {
-			out.write(buffer, 0 , length);
-		}
 
-		in.close();
-		
+
+
   }
 }
 ```
