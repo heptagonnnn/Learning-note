@@ -1,6 +1,18 @@
 # Maven
 [toc]
 
+## 工程目录
+```text
+root
+  |-src
+    |--main
+      |--java
+    |--test
+      |--java
+    pom.xml
+```
+
+
 ## POM
 
 Project Object Model，项目对象模型是Maven的基本工作单元，是一个XML文件，包含了项目的基本信息，用于描述项目如何构建，声明项目依赖，等等。
@@ -108,6 +120,17 @@ POM中可以指定以下配置
 </project>
 ```
 ## 构建（build）生命周期
-
+### clean
+### test
+### compile
+### packgage
+### install
 
 ## Maven构建配置文件
+
+
+## 名词解释
+
+### 坐标
+### 构件
+### 仓库
