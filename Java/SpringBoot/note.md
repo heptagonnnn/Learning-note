@@ -119,5 +119,9 @@ public Class User {
 }
 ```
 
+```Java
+@Transactional
+```
+
 
 ## lombok
