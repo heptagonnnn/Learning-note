@@ -6,7 +6,7 @@
 node的模块系统基于CommonJS规范(www.commonjs.org/specs/modules/1.0/)
 
 
-3.1 模块机制
+### 3.1 模块机制
 
 模块寻找机制
 
@@ -16,13 +16,13 @@ node的模块系统基于CommonJS规范(www.commonjs.org/specs/modules/1.0/)
 2.  node_modeuls文件内
     ![node_modules内模块寻找机制](./in_node_modules.jpg)
 
-3.2 异步编程技术
+### 3.2 异步编程技术
 
 回调
 
 事件监听
 
-3.3 异步逻辑顺序化
+### 3.3 异步逻辑顺序化
 
 3.3.1 串行流程控制
 文章中使用了数组的方式，一次触发push进数组的函数，从而实现串行流程的控制。
@@ -153,4 +153,74 @@ readDir(filesDir)
   .catch(e => {
     console.error(e);
   });
+```
+
+
+## 第四章
+
+### 4.3 提供静态文件服务
+
+```js
+const http = require("http");
+const {parse} = require("url");
+const {join} = require("path");
+const {promisify} = require("util");
+const fs = require("fs");
+
+
+const stat = promisify(fs.stat);
+
+const root = __dirname;
+
+
+
+
+statusFactory.registerStatus(404, "404 Not Found");
+statusFactory.registerStatus(500, "Internal Server Error");
+
+
+const server = http.createServer((req, res) => {
+    const url = parse(req.url);
+
+    const path = join(root, url.pathname);
+
+    stat(path)
+        .then((stat) => {
+            responseFile(res, stat, path);
+        })
+        .catch(err => {
+            console.log(err);
+            if ("ENOENT" === err.code) {
+                statusFactory.useStatus(res, 404);
+            } else {
+                statusFactory.useStatus(res, 500);
+            }
+        })
+});
+
+
+server.listen(8081);
+
+
+const statusFactory = {
+    registerStatus(status, text) {
+        this[status] = text;
+    },
+    useStatus(res, status) {
+        res.statusCode = 404;
+        res.end(this[status]);
+    }
+};
+
+
+function responseFile(res, stat, path) {
+    res.setHeader("Content-Length", stat.size);
+
+    const stream = fs.createReadStream(path);
+    stream.pipe(res);
+
+    stream.on("error", (err) => {
+        statusFactory.useStatus(res, 500);
+    })
+}
 ```
