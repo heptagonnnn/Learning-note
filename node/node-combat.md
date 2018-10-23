@@ -173,8 +173,6 @@ const stat = promisify(fs.stat);
 const root = __dirname;
 
 
-
-
 statusFactory.registerStatus(404, "404 Not Found");
 statusFactory.registerStatus(500, "Internal Server Error");
 
@@ -211,7 +209,6 @@ const statusFactory = {
         res.end(this[status]);
     }
 };
-
 
 function responseFile(res, stat, path) {
     res.setHeader("Content-Length", stat.size);
