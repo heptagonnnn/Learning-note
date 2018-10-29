@@ -314,3 +314,30 @@ function add (req, res) {
   })
 }
 ```
+
+
+
+## 第五章
+
+### 5.1 无服务器数据存储
+
+无服务器数据存储包括内存存储和文件存储
+
+1. 内存存储
+内存存储的特点是快速，高效。
+缺点是无法做到持久化(persistance)，数据容易丢失
+
+2. 文件存储
+文件存储常用于保存配置信息，有一定的持久化能力。
+缺点是无法应对并发情况
+
+
+### 5.2 关系型数据库管理系统
+RDBMS--relational database menage system
+ORM--Object Relational Mapping
+
+可以存储复杂的信息，查询容易
+可通过ORM API操作
+
+
+5.2.1 MySQL
