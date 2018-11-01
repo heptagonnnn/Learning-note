@@ -4,3 +4,6 @@
 
 ## nrm
 用于registry管理
+
+## cnpm
+阿里镜像
