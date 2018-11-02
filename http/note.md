@@ -47,7 +47,7 @@ com被成为顶级域名
 跨域是指，协议，顶级域名以下的其他域名，端口号，中有任何一个不相同，即为跨域
 
 跨域场景一定会发一个options请求，称作预请求
-用于确认正式请求中header内携带的字段,及其合法类型
+用于确认正式请求中header内携带字段,及其合法类型
 
 
 前端---fetch
@@ -100,7 +100,7 @@ fetch("/test", {
 });
 ```
 fetch的credentails为include时，表示可以进行cookie跨域
-但出于安全性角度，此时http头中的access-control-allow-origin不能设置为*
+但出于安全性角度，此时http头中的access-control-allow-origin不能设置为*
 
 在无特殊安全要求的场景下，可以在express中，将request的地址动态设置为origin来解决此问题
 
@@ -144,11 +144,11 @@ const app = express();
 /*
 根据cors中间件的文档，配置对象的origin字段为一个函数时，第一个参数时request地址，第二个参数是是一个回调参数
 
-回调参数中第一个参数是
+回调参数中第一个参数是req的origin
 */
 const corsConfig = {
   origin: function(req, cb) {
-    // 此处的req就是发起请求页面的origin
+    // 此处的req就是发起请求页面的origin
     cb(undefined, req);
   },
   credentials: true
