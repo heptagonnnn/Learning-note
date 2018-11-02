@@ -13,9 +13,6 @@
 
 
 
-
-
-
 ## content-type
 
 
@@ -28,20 +25,29 @@
 | text/plain | 纯文本 |
 
 
-## 跨域处理方案
-
-此种方案设计两种场景
-1. 跨域
-2. 需要发送options请求
-
 ## 域名
 对于域名的划分，尚存争议
-以http://www.baidu.com
+以http://www.baidu.com为例
+
+http为协议
+
+com被成为顶级域名
+
+
+1. 协议://[依次往下排.]三级域名.二级域名.顶级域名
+  baidu: 二级域名
+  www: 三级域名
+
+2. 协议://[依次往下排.]二级域名.一级域名.顶级域名
+  baidu: 一级域名
+  www: 二级域名
 
 
 ### 跨域
-跨域是指，协议，二级域名，端口号，
+跨域是指，协议，顶级域名以下的其他域名，端口号，中有任何一个不相同，即为跨域
 
+跨域场景一定会发一个options请求，称作预请求
+用于确认正式请求中header内携带的字段,及其合法类型
 
 
 前端---fetch
@@ -77,4 +83,78 @@ app.all("*", (req, res, next) => {
 const cors = require("cors");
 
 app.use(cors());
+```
+
+### cookie跨域
+
+对于一般跨域请求，可以使用
+```JavaScript
+"access-control-allow-origin": "*"
+```
+
+但是若存在cookie跨域时
+对于fetch请求
+```JavaScript
+fetch("/test", {
+  credentials: "include"
+});
+```
+fetch的credentails为include时，表示可以进行cookie跨域
+但出于安全性角度，此时http头中的access-control-allow-origin不能设置为*
+
+在无特殊安全要求的场景下，可以在express中，将request的地址动态设置为origin来解决此问题
+
+
+cors中关于origin的源码
+```JavaScript
+var corsOptions = assign({}, defaults, options);
+         var originCallback = null;
+         if (corsOptions.origin && typeof corsOptions.origin === 'function') {
+           originCallback = corsOptions.origin;
+         } else if (corsOptions.origin) {
+           originCallback = function (origin, cb) {
+             cb(null, corsOptions.origin);
+           };
+         }
+
+         if (originCallback) {
+           originCallback(req.headers.origin, function (err2, origin) {
+             if (err2 || !origin) {
+               next(err2);
+             } else {
+               // 当不存在err2， 且有origin 时，将origin作为头中的origin字段
+               corsOptions.origin = origin;
+               cors(corsOptions, req, res, next);
+             }
+           });
+         } else {
+           next();
+         }
+```
+完整代码如下
+```javascript
+const express = require("express");
+const cors = require("cors");
+
+const app = express();
+
+
+
+
+/*
+根据cors中间件的文档，配置对象的origin字段为一个函数时，第一个参数时request地址，第二个参数是是一个回调参数
+
+回调参数中第一个参数是
+*/
+const corsConfig = {
+  origin: function(req, cb) {
+    // 此处的req就是发起请求页面的origin
+    cb(undefined, req);
+  },
+  credentials: true
+};
+// 使用中间件
+// 跨域
+app.use(cors(corsConfig));
+
 ```
