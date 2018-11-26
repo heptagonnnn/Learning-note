@@ -36,7 +36,7 @@ This app starts a server and listens on port 3000 for connections. The app respo
 这个app启动了一个服务器，并监听了3000端口的连接。app对于根URL(/)的请求返回"Hello World"。对于其他的任意路径，他将返回404 NOT FOUND
 
 ---
- 
+
 
 The example above is actually a working server: Go ahead and click on the URL shown. You’ll get a response, with real-time logs on the page, and any changes you make will be reflected in real time. This is powered by RunKit, which provides an interactive JavaScript playground connected to a complete Node environment that runs in your web browser. Below are instructions for running the same app on your local machine.
 
@@ -103,7 +103,7 @@ node app.js
 
 *Routing* refers to how an application's endpoints(URLs) respond to client requests. For an introduction to routing, see Basic routing.
 *路由* 一章涉及到应用的终端(URLs)是如何回复客户端请求的。对于路由的介绍，可参见基础路由一章。
-
+
 
 -----
 
