@@ -131,3 +131,33 @@ Detailed annotation behavior, along with a small set of basic annotation keyword
 当实例对含有注解的schema对象和他们的父对象进行校验时，JSON Schema可以用一些信息对实例进行注解。
 
 详细的注解行为，以及一小组基本注解关键字被定义在校验规范中
+
+
+### 3.3 Hypermedia and Linking
+
+JSON Hyper-Schema describes the hypertext structure of a JSON document. This includes link relations from the instance to other resources, interpretation of instances as multimedia data, and submission data required to use an API.
+
+Hyper-Schema behaviour and keywords are specified in a separate document[json-hyper-schema].
+
+
+JSON Hyper-Schema 描述了JSON文档的超文本结构。它包括从实例到其他资源的链接关系，多媒体数据实例的解释，和API中必须提交的数据。
+
+Hyper-Schema 行为和关键字在单独的文档中有规定。
+
+
+## 4. definitions
+
+## 4. 定义
+
+### 4.1 JSON Document
+
+A JSON document is an information resource(series of octets) described by the application/json media type.
+
+In JSON Schema, the terms "JSON document", "JSON text", and "JSON value" are interchangeable because of the data model it defines.
+
+JSON Schema is only defined over JSON documents. However, any document or memory structrue that can be parsed into or processed according to the JSON Schema data moel can be interpreted against a JSON Schema, including media types like CBOR[RFC7049].
+
+
+### 4.1 JSON文档
+
+JSON文档是一种由application/json媒体类型描述的
