@@ -155,7 +155,7 @@ A JSON document is an information resource(series of octets) described by the ap
 
 In JSON Schema, the terms "JSON document", "JSON text", and "JSON value" are interchangeable because of the data model it defines.
 
-JSON Schema is only defined over JSON documents. However, any document or memory structrue that can be parsed into or processed according to the JSON Schema data moel can be interpreted against a JSON Schema, including media types like CBOR[RFC7049].
+JSON Schema is only defined over JSON documents. However, any document or memory structrue that can be parsed into or processed according to the JSON Schema data model can be interpreted against a JSON Schema, including media types like CBOR[RFC7049].
 
 
 ### 4.1 JSON文档
@@ -164,4 +164,17 @@ JSON文档是一种由application/json媒体类型描述的信息源(八进制�
 
 在JSON Schema中，“JSON文档”， “JSON文本”和“JSON值”是可以互换的，因为他们定义了相同的数据模型。
 
-JSON Schema
+JSON Schema虽然只是定义了JSON文档。但是，任何可以根据JSON模式数据模型解析或处理的文档或内存结构都可以根据JSON模式进行解释，也包括了CBOR中声明的媒体类型
+
+
+
+
+## 4.2 Instance
+
+A JSON document to which a schema is applied is known as an "instance".
+
+
+## 4.2 实例
+应用JSON Schema的JSON文档成为“实例”。
+
+
