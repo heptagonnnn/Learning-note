@@ -160,4 +160,8 @@ JSON Schema is only defined over JSON documents. However, any document or memory
 
 ### 4.1 JSON文档
 
-JSON文档是一种由application/json媒体类型描述的
+JSON文档是一种由application/json媒体类型描述的信息源(八进制序列)。
+
+在JSON Schema中，“JSON文档”， “JSON文本”和“JSON值”是可以互换的，因为他们定义了相同的数据模型。
+
+JSON Schema
