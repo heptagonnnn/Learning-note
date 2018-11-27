@@ -104,3 +104,30 @@ This document proposes a new media type "application/schema+json" to identify a 
 ## 3.简介
 
 本文档提出了一种新的媒体类型---"application/schema+json"，它用来定义用于描述JSON数据的JSON Schema。它同样提议了一种更深入的可选媒体类型---"application/schema-instance+json"，用于提供额外的集成参数。这中媒体类型，与相关联的规范，用几个方面，共同定义了允许作者描述JSON数据的关键字。
+
+
+
+
+### 3.1 Validation
+
+JSON Schema describes the structure of a JSON document(for instance, required properties and length limitations). Applications can use this information to validate instances(check that constraints are met), or inform interfaces to collect user input such that the constraints are satisfied
+
+Validation behaviour and keywords are specified in a seperate document[json-schema-validation].
+
+### 3.1 合法性校验
+JSON Schema描述了JSON文档的结构（例如，必填属性和长度限制）。应用可以使用这个信息去校验实例（检查约束是否被匹配），或通知界面去手机符合约束的用户输入。
+
+合法性校验行为和关键在在单独的文档规范中有介绍
+
+### 3.2 annotation
+
+JSON Schema can annotate an instance with information, whenever the instance validates against the schema object containing the annotation, and all of its parent schema object.
+
+Detailed annotation behavior, along with a small set of basic annotation keywords are defined int the validation specification[json-schema-validation]
+
+
+### 3.2 注解
+
+当实例对含有注解的schema对象和他们的父对象进行校验时，JSON Schema可以用一些信息对实例进行注解。
+
+详细的注解行为，以及一小组基本注解关键字被定义在校验规范中
