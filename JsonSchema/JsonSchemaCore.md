@@ -178,3 +178,212 @@ A JSON document to which a schema is applied is known as an "instance".
 应用JSON Schema的JSON文档成为“实例”。
 
 
+### 4.2.1 Instance Data Model
+
+JSON Schema interprets documents according to a data model. A JSON value interpreted according to this data model is called an "instance".
+
+An instance has one of six primitive types, and a range of possible values depending on the type:
+
+null:
+    A JSON "null" production
+
+boolean: 
+    A "true" or "false" value, from the JSON "true" or "false" productions.
+
+object:
+    An unordered set of properties mapping a string to an instance, from the JSON "object" production
+
+array:
+    An ordered list of instances, from the JSON "array" production
+
+number:
+    An arbitrary-precision, base-10 decimal number value, from the JSON "number" production
+
+string:
+    A string of Unicode code points, from the JSON "string" production
+
+Whitespace and formatting concerns, including different lexical representations of numbers that are equal within the data model, are thus outside the scope of JSON Schema. JSON Schema vocabularies [vocabulary] that wish to work with such differences in lexical representations SHOULD define keywords to precisely interpret formmated strings within the data model rather than relying on having the original JSON representation Unicode characters available.
+
+Since an object cannot have two properties with the same key, behavio for a JSON document that tries to define two properties (the "member" production) with the same key (the "string" production) in a single object is undefined.
+
+Note that JSON Schema vocabularies are free to define their own extended type system. This should not be confused with the core data model types defined here. As an example, "integer" is a reasonable type for a vocabulary to define as a value for a keyword, but the data model makes no distinction between integers and other numbers.
+
+
+### 4.2.1 数据模型实例
+
+JSON Schema 根据数据模型解释文档。 一个根据数据模型解释的JSON值称为“实例”。
+
+实例有6种原始类型，和预期匹配的值的范围：
+
+null：
+    包括了JSON中的“null”值
+
+boolean（布尔）：
+    “true”或“false”值，来自JSON的“true”或“false”结果
+
+object：
+    将字符串映射到实例的无序属性集，来自JSON“object”结果
+
+array：
+    实例的有序列表，来自JSON“array”结果
+
+number：
+    JSON“number”结果中的任意精度、以10为基数的十进制数值
+
+string：
+    一个Unicode编码点字符串，来自JSON的“字符串”结果
+
+因此， 空格和格式化问题（包括数据模型中相等数字的不同词汇表达问题），已经超出了JSON Schema的范畴。JSON模式词汇表[词汇表]希望处理词汇表示方面的这些差异，应该定义关键字来精确地解释数据模型中的格式化字符串，而不是依赖于原始JSON表示Unicode字符。
+
+由于对象不能有两个具有相同键的属性，因此JSON文档试图在单个对象中定义具有相同键的两个属性(“成员”生成)(“字符串”生成)的行为是未定义的。
+
+
+注意JSON模式词汇表可以自由定义自己的扩展类型系统。这不应该与这里定义的核心数据模型类型混淆。例如，“integer”是词汇表定义为关键字值的合理类型，但是数据模型不区分整数和其他数字。
+
+
+### 4.2.2 Instance Media Types
+
+JSON Schema is designed to fully work with "application/json" documents, as well as media types using the "+json" structured syntax suffix.
+
+Some functionality that is useful for working with schemas is defined by each media type, namely media type parameters and URI fragment identifier syntax and semantics. These features are useful in content negotiation and in calculating URIs for specific locations within an instance, respectively.
+
+This specification defines the "application/schema-instance+json" media type in order to allow instance authors to take full advantage of parameters and fragment identifiers for these purposes.
+
+
+### 4.2.2 媒体类型实例
+
+JSON Schema 被设计成完全处理“application/json”文档以及“+json”结构语法后缀的媒体类型
+
+对于处理模式有用的一些功能是由每种媒体类型定义的，即媒体类型参数和URI片段标识符语法和语义。这些特性分别在内容协商和计算实例中特定位置的uri时非常有用。
+
+
+该规范定义了“application/schema-instance+json”媒体类型，以便实例作者能够充分利用这些参数和片段标识符。
+
+
+### 4.2.3 Instance Equality
+
+Two JSON instances are said to be equal if and only if they are of the same type and have the same value according to the data model. Specifically, this means:
+
+both are null; or
+both are true; or
+both are false; or
+both are strings, and are the same codepoint-for-codepoint; or
+both are numbers, and have the same mathematical value; or
+both are arrays, and have an equal value item-for-item; or
+both are objects, and each property in one has exactly one property with a key equal to the other's, and that other property has an equal value.
+
+Implied in this definition is that arrays must be the same length, objects must have the same number of members, properties in objects are unordered, there is no way to define multiple properties with the same key, and mere formatting differences (indentation, placement of commas, trailing zeros) are insignificant.
+
+
+
+### 4.2.3 实例相等
+
+当且仅当两个JSON实例类型相同且根据数据模型具有相同值时，两个JSON实例是相等的。具体来说,这意味着:
+
+两者都是零;或
+两者都是true的;或
+两者都是false的;或
+它们都是字符串，并且是相同的码点对码点;或
+它们都是数字，具有相同的数学值;或
+它们都是数组，并且具有相等的项对项的值;或
+它们都是对象，一个属性中的每个属性都有一个键值等于另一个键值的属性，而另一个属性的值也相等。
+
+该定义暗示数组必须相同长度，对象必须具有相同数量的成员，对象中的属性是无序的，无法定义具有相同键的多个属性，仅仅是格式差异(缩进、逗号的位置、后面的零)是不重要的。
+
+
+## 4.3 JSON Schema Documents
+
+A JSON Schema document, or simply a schema, is a JSON document used to describe an instance. A schema is itself interpreted as an instance, but SHOULD always be given the media type "application/schema+json" rather than "application/schema-instance+json". The "application/schema+json" media type is defined to offer a superset of the media type parameter and fragment identifier syntax and semantics provided by "application/schema-instance+json".
+
+
+## 4.3 JSON Schema 文档
+
+JSON Schema文档，或者简称为Schema，是用于描述实例的JSON文档。模式本身被解释为一个实例，但是应该总是给媒体类型“application/schema+json”，而不是“application/schema-instance+json”。定义“application/schema+json”媒体类型是为了提供“application/schema-instance+json”提供的媒体类型参数和片段标识符语法和语义的超集。
+
+
+### 4.3.1 JSON Schema Values and Keywords
+
+A JSON Schema MUST be an object or a boolean.
+
+Object properties that are applied to the instance are called keywords, or schema keywords. Broadly speaking, keywords fall into one or both of two categories:
+
+assertions:
+produce a boolean result when applied to an instance
+annotations:
+attach information to an instance for application use
+
+Keywords may fall into either or both categories. Extension keywords, meaning those defined outside of this document and its companions, are free to define other behaviors as well.
+
+The boolean schema values "true" and "false" are trivial assertions that always return themselves regardless of the instance value. As an example, in terms of the validation vocabulary, boolean schemas are equivalent to the following behaviors:
+
+true:
+Always passes validation, as if the empty schema {}
+false:
+Always fails validation, as if the schema { "not":{} }
+
+A JSON Schema MAY contain properties which are not schema keywords. Unknown keywords SHOULD be ignored.
+
+An empty schema is a JSON Schema with no properties, or only unknown properties.
+
+
+### 4.3.1 JSON Schema值和关键字
+
+
+JSON Schema 必须是一个对象或布尔值
+
+应用于实例的对象属性称作关键字，或Schema关键字。广义地说，关键字可以分为两种类别。
+
+断言：
+    当应用于一个实例时，返回一个布尔结果
+
+注解：
+    为应用中的实例添加一些信息
+
+关键字可能是其中的一种类别，也可能两种都占。扩展关键字，即在本文档及其附属文档之外定义的关键字，也可以自由定义其他行为。
+
+boolean Schema的值“true”和“false”是一些无关紧要的断言，它们总是返回自己，而不管实例值是什么。例如，在验证词汇表方面，布尔模式等价于以下行为:
+
+正确的:
+总是通过验证，就像空Schema{}
+错误的:
+验证总是失败，就好像Schema{“not”:{}}
+JSONSchema可能包含不是模式关键字的属性。未知的关键字应该被忽略。
+
+4.3.2 JSON Schema Vocabularies
+
+A JSON Schema vocabulary is a set of keywords defined for a particular purpose.The vocabulary specifies the meaning of its keywords as assertions, annotations, and/or any vocabulary-defined keyword category.The two companion standards to this document each define a vocabulary: One for instance validation, and one for hypermedia annotations. Vocabularies are the primary mechanism for extensibility within the JSON Schema media type.
+
+Vocabularies may be defined by any entity. Vocabulary authors SHOULD take care to avoid keyword name collisions if the vocabulary is intended for broad use, and potentially combined with other vocabularies. JSON Schema does not provide any formal namespacing system, but also does not constrain keyword names, allowing for any number of namespacing approaches.
+
+
+Vocabularies may build on each other, such as by defining the behavior of their keywords with respect to the behavior of keywords from another vocabulary, or by using a keyword from another vocabulary with a restricted or expanded set of acceptable values. Not all such vocabulary re-use will result in a new vocabulary that is compatible with the vocabulary on which it is built. Vocabulary authors SHOULD clearly document what level of compatibility, if any, is expected.
+
+
+A schema that itself describes a schema is called a meta-schema. Meta-schemas are used to validate JSON Schemas and specify which vocabulary it is using. 
+
+4.3.2 JSON Schema 词汇表
+
+JSON Schema词汇表使一些定义了特定用途关键字的合集。词汇表将其关键字的含义指定为断言、注释和/或任何词汇定义的关键字类别。本文附带的两个标准各自定义了一个词汇表:一个用于实例验证，另一个用于超媒体注释。词汇表是JSON Schema媒体类型中可扩展性的主要机制。
+
+词汇表可以由任何实体定义。如果词汇表是用于广泛使用的，并且可能与其他词汇结合在一起，那么词汇表作者应该注意避免关键字名称冲突。JSON Schema不提供任何正式的名称空间系统，但也不限制关键字名称，允许使用任意数量的名称空间方法。
+
+词汇表可以相互构建，例如通过定义其关键字相对于来自另一个词汇表的关键字的行为，或者通过使用来自另一个词汇表的关键字，并使用一组受限制或扩展的可接受值。并不是所有这些词汇的重用都会产生与构建它的词汇兼容的新词汇。词汇表作者应该清楚地记录期望的兼容性级别(如果有的话)。
+
+用于描述Schema的Schema称为元Schema。元Schema用于校验JSON Schema并且规定其使用词汇表。
+
+
+### 4.3.3 Root Schema and Subschemas
+
+The root schema is the schema that comprises the entire JSON document in question.
+
+Some keywords take schemas themselves, allowing JSON Schemas to be nested.
+
+As with the root schema, a subschema is either an object or a boolean.
+
+### 4.3.3 根Schema和子Schema
+
+根Schema是包含所讨论的整个JSON文档的Schema。
+
+一些关键字本身带有Schema，允许嵌套JSON模Schema
+
+与根Schema一样，子模式要么是对象，要么是布尔值。
