@@ -169,16 +169,16 @@ JSON Schema虽然只是定义了JSON文档。但是，任何可以根据JSON模�
 
 
 
-## 4.2 Instance
+### 4.2 Instance
 
 A JSON document to which a schema is applied is known as an "instance".
 
 
-## 4.2 实例
+### 4.2 实例
 应用JSON Schema的JSON文档成为“实例”。
 
 
-### 4.2.1 Instance Data Model
+#### 4.2.1 Instance Data Model
 
 JSON Schema interprets documents according to a data model. A JSON value interpreted according to this data model is called an "instance".
 
@@ -209,7 +209,7 @@ Since an object cannot have two properties with the same key, behavio for a JSON
 Note that JSON Schema vocabularies are free to define their own extended type system. This should not be confused with the core data model types defined here. As an example, "integer" is a reasonable type for a vocabulary to define as a value for a keyword, but the data model makes no distinction between integers and other numbers.
 
 
-### 4.2.1 数据模型实例
+#### 4.2.1 数据模型实例
 
 JSON Schema 根据数据模型解释文档。 一个根据数据模型解释的JSON值称为“实例”。
 
@@ -241,7 +241,7 @@ string：
 注意JSON模式词汇表可以自由定义自己的扩展类型系统。这不应该与这里定义的核心数据模型类型混淆。例如，“integer”是词汇表定义为关键字值的合理类型，但是数据模型不区分整数和其他数字。
 
 
-### 4.2.2 Instance Media Types
+#### 4.2.2 Instance Media Types
 
 JSON Schema is designed to fully work with "application/json" documents, as well as media types using the "+json" structured syntax suffix.
 
@@ -250,7 +250,7 @@ Some functionality that is useful for working with schemas is defined by each me
 This specification defines the "application/schema-instance+json" media type in order to allow instance authors to take full advantage of parameters and fragment identifiers for these purposes.
 
 
-### 4.2.2 媒体类型实例
+#### 4.2.2 媒体类型实例
 
 JSON Schema 被设计成完全处理“application/json”文档以及“+json”结构语法后缀的媒体类型
 
@@ -260,7 +260,7 @@ JSON Schema 被设计成完全处理“application/json”文档以及“+json�
 该规范定义了“application/schema-instance+json”媒体类型，以便实例作者能够充分利用这些参数和片段标识符。
 
 
-### 4.2.3 Instance Equality
+#### 4.2.3 Instance Equality
 
 Two JSON instances are said to be equal if and only if they are of the same type and have the same value according to the data model. Specifically, this means:
 
@@ -276,7 +276,7 @@ Implied in this definition is that arrays must be the same length, objects must 
 
 
 
-### 4.2.3 实例相等
+#### 4.2.3 实例相等
 
 当且仅当两个JSON实例类型相同且根据数据模型具有相同值时，两个JSON实例是相等的。具体来说,这意味着:
 
@@ -291,17 +291,17 @@ Implied in this definition is that arrays must be the same length, objects must 
 该定义暗示数组必须相同长度，对象必须具有相同数量的成员，对象中的属性是无序的，无法定义具有相同键的多个属性，仅仅是格式差异(缩进、逗号的位置、后面的零)是不重要的。
 
 
-## 4.3 JSON Schema Documents
+### 4.3 JSON Schema Documents
 
 A JSON Schema document, or simply a schema, is a JSON document used to describe an instance. A schema is itself interpreted as an instance, but SHOULD always be given the media type "application/schema+json" rather than "application/schema-instance+json". The "application/schema+json" media type is defined to offer a superset of the media type parameter and fragment identifier syntax and semantics provided by "application/schema-instance+json".
 
 
-## 4.3 JSON Schema 文档
+### 4.3 JSON Schema 文档
 
 JSON Schema文档，或者简称为Schema，是用于描述实例的JSON文档。模式本身被解释为一个实例，但是应该总是给媒体类型“application/schema+json”，而不是“application/schema-instance+json”。定义“application/schema+json”媒体类型是为了提供“application/schema-instance+json”提供的媒体类型参数和片段标识符语法和语义的超集。
 
 
-### 4.3.1 JSON Schema Values and Keywords
+#### 4.3.1 JSON Schema Values and Keywords
 
 A JSON Schema MUST be an object or a boolean.
 
@@ -326,7 +326,7 @@ A JSON Schema MAY contain properties which are not schema keywords. Unknown keyw
 An empty schema is a JSON Schema with no properties, or only unknown properties.
 
 
-### 4.3.1 JSON Schema值和关键字
+#### 4.3.1 JSON Schema值和关键字
 
 
 JSON Schema 必须是一个对象或布尔值
@@ -349,7 +349,7 @@ boolean Schema的值“true”和“false”是一些无关紧要的断言，它
 验证总是失败，就好像Schema{“not”:{}}
 JSONSchema可能包含不是模式关键字的属性。未知的关键字应该被忽略。
 
-4.3.2 JSON Schema Vocabularies
+#### 4.3.2 JSON Schema Vocabularies
 
 A JSON Schema vocabulary is a set of keywords defined for a particular purpose.The vocabulary specifies the meaning of its keywords as assertions, annotations, and/or any vocabulary-defined keyword category.The two companion standards to this document each define a vocabulary: One for instance validation, and one for hypermedia annotations. Vocabularies are the primary mechanism for extensibility within the JSON Schema media type.
 
@@ -361,7 +361,7 @@ Vocabularies may build on each other, such as by defining the behavior of their 
 
 A schema that itself describes a schema is called a meta-schema. Meta-schemas are used to validate JSON Schemas and specify which vocabulary it is using. 
 
-4.3.2 JSON Schema 词汇表
+#### 4.3.2 JSON Schema 词汇表
 
 JSON Schema词汇表使一些定义了特定用途关键字的合集。词汇表将其关键字的含义指定为断言、注释和/或任何词汇定义的关键字类别。本文附带的两个标准各自定义了一个词汇表:一个用于实例验证，另一个用于超媒体注释。词汇表是JSON Schema媒体类型中可扩展性的主要机制。
 
@@ -372,7 +372,7 @@ JSON Schema词汇表使一些定义了特定用途关键字的合集。词汇表
 用于描述Schema的Schema称为元Schema。元Schema用于校验JSON Schema并且规定其使用词汇表。
 
 
-### 4.3.3 Root Schema and Subschemas
+#### 4.3.3 Root Schema and Subschemas
 
 The root schema is the schema that comprises the entire JSON document in question.
 
@@ -380,10 +380,126 @@ Some keywords take schemas themselves, allowing JSON Schemas to be nested.
 
 As with the root schema, a subschema is either an object or a boolean.
 
-### 4.3.3 根Schema和子Schema
+#### 4.3.3 根Schema和子Schema
 
 根Schema是包含所讨论的整个JSON文档的Schema。
 
 一些关键字本身带有Schema，允许嵌套JSON模Schema
 
 与根Schema一样，子模式要么是对象，要么是布尔值。
+
+
+
+## 5 Fragment Identifiers
+In accordance with section 3.1 of [RFC6839], the syntax and semantics of fragment identifiers specified for any +json media type SHOULD be as specified for "application/json". (At publication of this document, there is no fragment identification syntax defined for "application/json".)
+
+Additionally, the "application/schema+json" media type supports two fragment identifier structures: plain names and JSON Pointers. The "application/schema-instance+json" media type supports one fragment identifier structure: JSON Pointers.
+
+The use of JSON Pointers as URI fragment identifiers is described in RFC 6901 [RFC6901]. For "application/schema+json", which supports two fragment identifier syntaxes, fragment identifiers matching the JSON Pointer syntax, including the empty string, MUST be interpreted as JSON Pointer fragment identifiers.
+
+Per the W3C's best practices for fragment identifiers [W3C.WD-fragid-best-practices-20121025], plain name fragment identifiers in "application/schema+json" are reserved for referencing locally named schemas. All fragment identifiers that do not match the JSON Pointer syntax MUST be interpreted as plain name fragment identifiers.
+
+Defining and referencing a plain name fragment identifier within an "application/schema+json" document are specified in the "$id" keyword [id-keyword] section.
+## 5 片段标识符
+
+根据[RFC6839]第3.1节，为任何+json媒体类型指定的片段标识符的语法和语义应按照“application/json”指定。(本文档发布时，没有为“application/json”定义片段标识语法。)
+
+此外，“应用程序/模式+json”媒体类型支持两个片段标识符结构:纯名称和json指针。“应用程序/模式实例+json”媒体类型支持一个片段标识符结构:json指针。
+
+在RFC6901 [RFC6901]中描述了JSON指针作为URI片段标识符的使用。对于支持两个片段标识符语法的“application/schema+json”，匹配json指针语法(包括空字符串)的片段标识符必须解释为json指针片段标识符。
+
+根据W3C的片段标识符最佳实践[W3C]。wd -fragid-best-practice -20121025]，“application/schema+json”中的纯名称片段标识符保留用于引用本地命名的模式。所有不匹配JSON指针语法的片段标识符必须解释为纯名称片段标识符。
+
+定义和引用“应用程序/模式+json”文档中的纯名称片段标识符在“$id”关键字[id-关键字]部分中指定。
+
+## 6. General Considerations
+
+
+### 6.1 Range of JSON Values
+
+An instance may be any valid JSON value as defined by JSON [RFC7159]. JSON Schema imposes no restrictions on type: JSON Schema can describe any JSON value, including, for example, null.
+
+
+### 6.2 Programming Language Independence
+
+JSON Schema is programming language agnostic, and supports the full range of values described in the data model. Be aware, however, that some languages and JSON parsers may not be able to represent in memory the full range of values describable by JSON.
+
+### 6.3 Mathematical Integers
+
+Some programming languages and parsers use different internal representations for floating point numbers than they do for integers.
+
+For consistency, integer JSON numbers SHOULD NOT be encoded with a fractional part.
+
+### 6.4 Extending JSON Schema
+
+
+Implementations MAY define additional keywords to JSON Schema. Save for explicit agreement, schema authors SHALL NOT expect these additional keywords to be supported by peer implementations. Implementations SHOULD ignore keywords they do not support.
+
+Authors of extensions to JSON Schema are encouraged to write their own meta-schemas, which extend the existing meta-schemas using "allOf". This extended meta-schema SHOULD be referenced using the "$schema" keyword, to allow tools to follow the correct behaviour.
+
+Note that the recursive nature of meta-schemas requires re-defining recursive keywords in the extended meta-schema, as can be seen in the JSON Hyper-Schema meta-schema.
+
+
+
+## 6. 一般考虑
+
+### 6.1 JSON值的范围
+
+实例可以是JSON [RFC7159]定义的任何有效JSON值。JSON模式对类型没有任何限制:JSON模式可以描述任何JSON值，例如，包括null。
+
+### 6.2 编程语言依赖
+
+JSON模式是与编程语言无关的，它支持数据模型中描述的所有值。但是，请注意，一些语言和JSON解析器可能无法在内存中表示JSON可描述的所有值。
+
+
+### 6.3 数学整数
+
+一些编程语言和解析器对浮点数使用不同于整数的内部表示。
+
+为了保持一致性，整数JSON数字不应该用小数部分编码。
+
+
+### 6.4 JSON Schema
+
+
+实现可以为JSON Schema定义额外的关键字。除了显式一致， Schema作者不期望这些额外的关键字得到对等实现的支持。实现应该忽略它们不支持的关键字。
+
+我们鼓励JSON Schema扩展的作者编写自己的元 Schema，这些元 Schema使用“allOf”扩展现有的元 Schema。应该使用“$schema”关键字引用这个扩展的元 Schema，以允许工具遵循正确的行为。
+
+注意，元 Schema的递归本质要求在扩展元 Schema中重新定义递归关键字，这一点在JSON超 Schema元 Schema中可以看到。
+
+
+
+
+## 7. The "$Schema" Keyword
+
+The "$schema" keyword is both used as a JSON Schema version identifier and the location of a resource which is itself a JSON Schema, which describes any schema written for this particular version.
+
+The value of this keyword MUST be a URI [RFC3986] (containing a scheme) and this URI MUST be normalized. The current schema MUST be valid against the meta-schema identified by this URI.
+
+If this URI identifies a retrievable resource, that resource SHOULD be of media type "application/schema+json".
+
+The "$schema" keyword SHOULD be used in a root schema. It MUST NOT appear in subschemas.
+
+Values for this property are defined in other documents and by other parties. JSON Schema implementations SHOULD implement support for current and previous published drafts of JSON Schema vocabularies as deemed reasonable.
+
+## 7 "$Schema" 关键字
+
+“$schema”关键字既可用作JSON Schema版本标识符，也可用作资源的位置(资源本身就是JSON SChema)，后者描述为该特定版本编写的任何Schema。
+
+这个关键字的值必须是URI [RFC3986](包含一个方案)，并且这个URI必须标准化。当前Schema必须对这个URI标识的元Schema有效。
+
+如果这个URI标识了一个可检索的资源，则该资源应该是媒体类型“application/schema+json”。
+
+
+“$schema”关键字应该在根Schema中使用。它不能出现在子Schema中。
+
+此属性的值由其他文档和其他各方定义。并且，JSONSChema实现应该实现对当前和以前发布的JSON SChema词汇表草案的支持。
+
+
+
+
+
+
+
+
