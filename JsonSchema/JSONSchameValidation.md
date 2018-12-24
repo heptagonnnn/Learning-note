@@ -145,6 +145,49 @@ The "format", "contentType", and "contentEncoding" keywords can also be implemen
 校验是一种检测断言的方式。为了能成功校验，一个实例必须满足每个断言添加的约束。
 
 
+如果没有定义断言关键泽不会进行校验。在一些情况下，无操作行为于存在确定值的关键字是相同的，这些值会在已知的地方标注。
+
+general，numeric和string章节中的所有关键字都是断言，以及 "minItems", "maxItems", "uniqueItems", "minProperties", "maxProperties", 和 "required"。此外，“dependencies”则是条件关键字和断言关键字组合的缩写。
+
+“format”、“contentType”和“contentEncoding”关键字也可以实现为断言，尽管该功能是该规范的可选部分，而且关键字传递了额外的非断言信息。
+
+
+### 3.2.1 Assertions and Instance Primitive Types
+
+Most validation assertions only constrain values within a certain primitive type. When the type of instance is not of the type targeted by keyword, the instance is considered to conform to the assertion.
+
+For example the "maxLength" keyword will only restric certain strings(that are too long) from being valid. If the instance is a number, boolean, null, array, or object, then iti s valid against this assertion.
+
+### 3.2.1 断言和实例原始类型
+
+大部分校验断言只对具体的原始类型进行约束。当实例的类型不是关键字制定的类型，则实例就被认为是符合断言的。
+
+例如，“maxLength”关键字只能约束指定字符串（过长）的合法性。但如果实例是number,boolean,null,array或object，则该实例一定能通过断言。
+
+
+
+
+## 3.3 Annotations
+
+In addition to assertions, this specification provides a small vocabulary of metadata keywords that can be used to annotate the JSON instance with useful information. The Section7 and Section 8 keywords are also useful as annotations as well as being optional assertions, as they convey additional usage guidance for the instance data.
+
+A schema that is applicable to a particular location in the instance, against which the instance location is valid, attaches its annotations to that location in the instance. Since many subschemas can be applicable to any single location, annotation keyword need to specify any unusual handling of multiple applicable occurrences of the keyword with different values. The default behavior is simply to collect all values.
+
+Additional vocabularies SHOULD make use of this mechanism for applying their own annotations to instances.
+
+
+
+## 3.3 注解
+除了断言之外，该规范还提供了一小部分元数据关键字词汇表，可以使用这些词汇表用有用的信息对JSON实例进行注释。Section7和Section 8关键字与注释以及可选断言一样有用，因为它们为实例数据提供了额外的使用指南。
+
+一个schema适用于实例中的特定位置，且实例中某个位置是合法的，则会将注解与实例中的位置相联。由于许多子模式可以适用于任何单个位置，因此注释关键字需要指定对具有不同值的关键字的多次出现的异常处理。默认行为是简单地收集所有值。
+
+其他词汇表应该使用这种机制将它们自己的注释应用到实例。
+
+
+
+
+
 
 
 
