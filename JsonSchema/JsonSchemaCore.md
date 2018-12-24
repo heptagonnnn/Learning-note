@@ -498,6 +498,13 @@ Values for this property are defined in other documents and by other parties. JS
 
 
 
+## 8. Base URI and Dereferencing
+To differentiate between schemas in a vast ecosystem, schemas are identified by URI, and canembed references to other schemas by specifying their URI.
+
+## 8. 基础URI和间接引用
+
+
+
 
 
 
