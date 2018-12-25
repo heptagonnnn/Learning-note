@@ -186,14 +186,229 @@ Additional vocabularies SHOULD make use of this mechanism for applying their own
 
 
 
+### 3.3.1 Annotations and Validation Outcomes
+
+Annotations are collected whenever an instance is valid against a schema object, and all of that schema object's parent schemas.
+
+In particular, annotations in a subschema contained within a "not", not any depth, including any number of intervening additional "not" subschemas, MUST be ignored. If the instance was valid against the "not" subschema, then by definition it is not valid against the schema that contains the "not", so the "not" subschema's annotations are not used.
+
+Similarly, annotations within a failing branch of a "oneOf", "anyOf", "then", or "else" MUST be ignored even when the instance successfully validates against the complete schema document.
+
+
+
+### 3.3.1 注解与校验结果
+
+只要实例对schema对象以及该schema对象的所有父schema有效，就会收集注释。
+
+特别是，必须忽略“not”中包含的子schema中的注释，在任何深度上，包括任何数量的插入的额外“not”子schema。如果实例对“not”子schema有效，那么根据定义，它对包含“not”的schema无效，因此不使用“not”子schema的注释。
 
 
 
 
+类似地，必须忽略“oneOf”、“anyOf”、“then”或“else”分支中失败的注释，即使实例成功地对完整的模式文档进行验证。
 
 
 
 
+### 3.3.2 Annotations and Short-Circuit Validation
+
+Annotation keywords MUST be applied to all possible sub-instances. Even if such application can be short-circuited when only assertion evaluation is needed. For instance, the "contains" keyword need only be checked for assertions until at least one array item proves valid. However, when working with annotations, all items in the array must be evaluated to determine all items with which the annotations should be associated.
+
+
+
+# 4 Interoperability Considerations
+
+# 4 互操作性考虑
+
+
+## 4.1 Validation of String Instances
+
+It should be noted that the null character(\u0000) is valid in a JSON string. An instance to validate may contain a string value with this character, regardless of the ability of the underlying programming language to deal with such data.
+
+## 4.1 字符串实例校验
+
+需要注意的是null字符(\u0000)在JSON字符串中是有效的。要验证的实例可能包含具有此字符的字符串值，而不管底层编程语言处理此类数据的能力如何。
+
+
+## 4.2 Validation of Numeric Instances
+
+The JSON specification allows numbers with arbitrary precision, and JSON Schema does not add any such bounds. This means that numeric instances processed by JSON Schema canbe arbitrarily large and/or have an arbitrarily long decimal part, regradless of the ability of the underlying programming language to deal with such data.
+
+
+## 4.2 数字实例校验
+
+JSON规范允许具有任意精度的数字，JSON模式不添加任何此类界限。这意味着JSON模式处理的数值实例可以是任意大的和/或具有任意长的小数部分，而底层编程语言处理此类数据的能力是不可分级的。
+
+
+# 6 Validation Keywords
+
+Validation keywords in a schema impose requirements for successful validation of an instance.
+
+
+
+## 6.1 Validation Keywords for Any Instance Type
+
+### 6.1.1 type
+
+The value of this keyword MUST be either a string or an array. If it is an array, elements of the array MUST be strings and MUST be unique.
+
+String values MUST be one of the six primitive types ("null", "boolean", "object", "array", "number", or "string"), or "integer" which matches any number with a zero fractional part.
+
+An instance validates if and only if the instance is in any of the sets listed for this keyword.
+
+
+
+
+### 6.1.1 type
+
+这个关键字的值必须是字符串或数组。如果它是一个数组，数组的元素必须是字符串并且必须是唯一的。
+
+字符串值必须是六种基本类型(“null”、“boolean”、“object”、“array”、“number”或“String”)或“integer”中的一种，这六种类型匹配任何小数部分为零的数字。
+
+当且仅当实例位于为该关键字列出的任何集合中时，实例才会验证。
+
+
+### 6.1.2 enum
+The value of this keyword MUST be an array. This array SHOULD have at least one element. Elements in the array SHOULD be unique.
+
+An instance validates successfully against this keyword if its value is equal to one of the elements in this keyword's array value.
+
+Elements in the array might be of any value, including null.
+
+
+### 6.1.2 枚举
+
+枚举关键字的值必须是一个数组。这个数组应该至少有一个元素。数组中的元素必须是唯一的。
+
+如果实例的值与该关键字数组中的值相等，则实例可以成功完成对次关键字的校验。
+
+
+数组中的元素可以使任意值，包括null。
+
+
+### 6.1.3 const
+
+
+The value of this keyword MAY be of any type, including null.
+
+An instance validates successfully against this keyword if its value is equal to the value of the keyword.
+
+
+### 6.1.3 const
+
+该关键字的值可以使任何值，包括null。
+
+如果实例的值与关键字的相等，则该实例可以通过该关键字的校验。
+
+
+## 6.2 Validaton Keywords for Numeric Instances(number and integer)
+
+## 6.2 数值（数字与整数）实例的关键字校验
+
+### 6.2.1 multipleOf
+
+The value of "multipleOf" MUST be a number, strictly greater than 0.
+
+A numeric instance is valid only if division by this keyword's value results in an integer.
+
+
+### 6.2.1 倍数
+
+"multipleOf" 关键字的值必须是一个数字，且严格大于0。
+
+数值实例只有当其值可以被关键字的值整除时，才被定义为合法。
+
+### 6.2.2 maximum
+
+The value of "maximum" MUST be a number, representing an inclusive upper limit for a numeric instance.
+
+If the instance is a number, then this keyword validates only if the instance is less than or exactly equal to "maximum".
+
+### 6.2.2 maximum（最大值）
+
+"maximum"关键字的值必须是一个数字，表示一个数值实例的包含上限。
+
+如果实例是一个数字，当实例比"maximum"更小或相等时，可以通过关键字校验
+
+### 6.2.3 exclusiveMaximum
+
+The value of "exclusiveMaximum" MUST be number, representing an exclusive upper limit for a numeric instance.
+
+If the instance is a number, then this keyword validates only if the instance is strictly less than (not equal to) "exclusiveMaximum".
+
+### 6.2.3 不包含的最大值
+
+"exclusiveMaximum"关键字的值必须是一个数字，代表了该数值实例的取值范围的不包含上限。
+
+如果该实例是个数字，当其严格小于（且不等于）"exclusiveMaximum"时，可以通过校验
+
+
+### 6.2.4 minimum
+
+### 6.2.5 exclusiveMinimum
+
+
+## 6.3 Validation Keywords for Strings
+
+### 6.3.1 maxLength
+
+### 6.3.2 minLenght
+
+### 6.3.3 pattern
+
+
+## 6.4 Validation Keywords for Arrays
+
+###6.4.1 items
+
+The value of "items" MUST be either a valid JSON Schema or an array of valid JSON Schemas.
+
+This keyword determines how child instances validate for arrays, and does not directly validate the immediate instance itself.
+
+If "items" is a schema, validation succeeds if all elements in the array successfully validate against that schema.
+
+If "items" is an array of schemas, validation succeeds if each element of the instance validates against the schema at the same position, if any.
+
+Omitting this keyword has the same behavior as an empty schema.
+
+### 6.4.1 items
+
+"items" 的值必须是一个有效的JSON Schema 或一个 JSON Schema的数组。
+
+这个关键字决定了子实例如何验证数组，而不是直接验证实例本身。
+
+如果"items"字段是一个schema，只当数组中的所有元素都完成基于此schema校验时，他本身的校验才会成功。
+
+如果“items”是schema数组，那么如果实例的每个元素在相同的位置(如果有的话)对schema进行验证，那么验证将成功。
+
+省略此关键字将按照空schema处理。
+
+
+### 6.4.2 additionalItems
+
+The value of "additionalItems" MUST be a valid JSON Schema.
+
+This keyword determins how child instances validate for arrays, and does not directly validate the immediate instance itself.
+
+if "items" is an array of schemas, validation succeeds if every instance element at a position greater than the size of "items" validates against "additionalItems".
+
+Otherwise, "additionalItems" MUST be ignored, as the "items" schema (possibly the default value of an empty schema) is applied to all elements.
+
+Omitting this keyword has the same behavior as an empty schema.
+
+
+### 6.4.2 additionalItems
+
+"additionalItems" 关键字的值必须是一个有效的JSON Schema。
+
+这个关键字决定了子实例是如何校验数组的，而不是直接校验实例本身。
+
+如果"items"关键字是一个schema数组，那么当对items规定位置之外的每个元素都进行"additionalItems"验证成功，则验证成功。
+
+否则，“additionalItems”必须被忽略，因为“items”schema(可能是空schema的默认值)应用于所有元素。
+
+
+省略这个关键字与空schema具有相同的行为。
 
 
 
