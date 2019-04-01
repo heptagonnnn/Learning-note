@@ -410,6 +410,144 @@ Omitting this keyword has the same behavior as an empty schema.
 
 省略这个关键字与空schema具有相同的行为。
 
+### 6.4.3 maxItems
+
+
+### 6.4.4 minItems
+
+
+### 6.4.5 uniqueItems
+
+### 6.4.6 contains
+
+
+## 6.5 Validation Keywords for Objects
+
+### 6.5.1 maxProperties
+
+### 6.5.2 minPropertie
+
+### 6.5.3 required
+
+The value of this keyword MUST be an array. Elements of this array, if any, MUST be strings, and MUST be unique.
+
+An object instance is valid against this keyword if every item in the array is the name of a property in the instance.
+
+Omitting this keyword has the same behavior as an empty array.
+
+
+### 6.5.3 required
+
+此关键字的值必须是一个数组。数组中的元素必须是string，且必须唯一。 如果此数组中的每一项都是实例中的属性名的话，则该对象实例对于此关键字可以通过校验。
+
+省略此关键字与空数组具有相同的行为。
+
+
+### 6.5.4 properties
+
+
+### 6.5.5 patternProperties
+
+### 6.5.6 additionalProperties
+
+
+### 6.5.7 dependencies
+
+
+
+
+
+
+
+## 6.6 Keywords for Applying Subschemas Conditionally
+These keywords work together to implement conditional application of a subschema based on the outcome of another subschema.
+
+These keywords MUST NOT interact with each other across subschema boundaries. In other words, an "if" in on branch of an "allOf" MUST NOT have an impact on a "then" or "else" in another branch.
+
+There is no default behavior for any of these keywords when they are not present. In particular, they MUST NOT be treated as if present with an empty schema, and when "if" is not present, both "then" and "else" MUST be entirely ignored.
+
+## 6.6 条件应用子模式的关键字
+
+这些关键字一起工作来实现基于另一个子模式结果的子模式的条件应用。
+
+这些关键字无法跨子schema边界交互。换句话讲，"allOf"某一个分支中的if字段，不能与其他分支中的"then"或"else"字段交互。
+
+当这些关键字不存在时，他们并没有默认行为。必须指出的是，他们也不能视为存在一个空schema，当不存在"if"时，"then"和"else"字段都会被完全忽略。
+
+
+
+### 6.6.1 if 
+
+This keyword's value MUST be a valid JSON Schema.
+
+This validation outcome of this keyword's subschema has no direct effect on the overall validation result. Rather, it controls which of the "then" or "else" keywords are evaluated.
+
+
+Instances that successfully validate against this keyword's subschema MUST also be valid against the subschema value of the "then" keyword, if present.
+
+
+If annotations are being collected, they are collected from this keyword's subschema in the usual way, including when the keyword is present without either "then" or "else".
+
+
+
+
+### 6.6.1 if
+
+这个关键字的值必须是一个合法的JSON Schema。
+
+这个关键字的子schema的校验结果并不直接影响整体的校验结果，而是控制"else"和"then"关键字中哪个被计算。
+
+如果"then"关键字存在的话，能通过"if"关键字校验的实例，也必须能通过"then"关键字规定的子schema的校验。
+
+如果正在收集注释，则以通常的方式从该关键字的子模式中收集注释，包括在关键字不带“then”或“else”的情况下收集注释。
+
+### 6.6.2 then
+
+This keyword's value MUST be a valid JSON Schema.
+
+When "if" is present, and the instance successfully validates against its subschema, then validation succeeds against this keyword if the instance also successfully validates against this keyword's subschema.
+
+
+This keyword has no effect when "if" is absent, or when the instance fails to validate against its subschema. Implementations MUST NOT evaluate the instance against this keyword, for either validation or annotation collection purposes, in such cases.
+
+### 6.6.2 then
+
+这个关键字的值必须是一个合法的schema。
+ 
+当"if"关键字存在，并且实例成功通过了其子schema的校验，然后就会进行对"then"关键字的校验，如果也通过了，则校验成功。
+
+当"if"关键字不存，或实例没有通过"then"的子schema校验时，此关键字不会产生任何影响。在这种情况下，为了收集验证或注释的目的，实现必须不对这个关键字做任何评估。
+
+
+
+### 6.6.3 else 
+
+This keyword's value MUST be a valid JSON Schema.
+
+When "if" is present, and the instance fails to validate against its subschema, then validation succeeds against this keyword if the instance successfully validates against this keyword's subschema.
+
+This keyword has no effect when "if" is absent, or when the instance successfully validates against its subschema. Implementations MUST NOT evaluate the instance against this keyword, for either validation or annotation collection purposes, in such cases.
+
+这个关键字的值必须是一个合法的schema。
+
+当"if"关键字存在，并且实例未通过了其子schema的校验，然后就会进行对"else"关键字的校验，如果也通过了，则校验成功。
+
+当"if"关键字不存，或实例成功通过"if"的子schema校验时，此关键字不会产生任何影响。在这种情况下，为了收集验证或注释的目的，实现必须不对这个关键字做任何评估。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
